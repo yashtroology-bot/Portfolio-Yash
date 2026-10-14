@@ -1,0 +1,78 @@
+Yash Shukla
+Jankinagar , Gonda Uttar Pradesh 271001
+♂phone9838576734 /envel⌢peyashshukla0160@gmai /linkedinlinkedin.Yash /githubGithub.Yash
+Experience
+Troology Sept 2025 – Present
+Full Stack Developer On-Site
+•Contributing to the end-to-end development of large-scale government and enterprise-grade applications, ensuring secure
+system architecture, optimized workflows, and compliance with state-level technical and data-handling standards.
+•Worked on the UPSDMA (Uttar Pradesh State Disaster Management Authority) project — an NCC training
+and disaster preparedness platform developed for SDRF personnel and Aapda Mitra volunteers . Contributed to
+theRahat Sewa App , which is actively used by thousands of users , building and enhancing core features for
+training, coordination, and disaster response operations.
+•Independently developed a full-scale Ed-Tech platform (MOOC) from concept to production, owning the complete
+development lifecycle including system architecture, backend APIs, frontend implementation, authentication, database
+design, and deployment.
+•Currently working on an AI-based product — PartIQ , contributing as a full stack developer by managing both
+frontend and backend development , implementing scalable APIs, and integrating intelligent, data-driven features.
+•Building and maintaining scalable applications using the MERN stack —MongoDB, Express.js, React.js,
+Node.js, JavaScript, TypeScript , along with Tailwind CSS for modern UI development and RESTful APIs for
+seamless client-server communication.
+•Optimizing system performance by reducing API latency, improving database query efficiency, and enhancing UI
+responsiveness to ensure high availability and reliability for large user bases.
+•Utilizing tools such as Postman for API testing, Gitfor version control, and following best practices in API security,
+scalable backend architecture, and component-based frontend development.
+Cognitivo April 2025 – Aug 2025
+Full Stack Developer On-Site
+•Integrated multiple third-party platforms including Monday.com to streamline project management workflows
+through custom API connectors, webhooks, and automation scripts, improving operational efficiency and cross-team
+collaboration.
+•Implemented Web Push Notifications using Service Workers andVAPID keys , enabling real-time user alerts and
+significantly improving user engagement and retention.
+•Integrated AI-powered chat functionality (GPT-based) into applications to support intelligent user interactions,
+automated responses, and enhanced user experience.
+•Designed, built, and optimized end-to-end RESTful and GraphQL APIs using Node.js andExpress.js , integrating
+PostgreSQL andMongoDB backends, resulting in a 50% increase in concurrent user traffic without performance
+degradation.
+•Led significant UI/UX improvements , refactoring frontend components and enhancing responsiveness, accessibility,
+and visual consistency across the application.
+•Developed scalable and responsive web applications using React.js, TypeScript, JavaScript, Material UI, and
+Tailwind CSS , ensuring clean code architecture, reusable components, and high user satisfaction.
+•Collaborated closely with product and design teams to implement new features, fix performance bottlenecks, and deliver
+production-ready solutions on tight deadlines.
+Singularies pvt ltd March 2024 – March 2025
+Software Engineer On-Site, Mumbai
+•INtegrating api’s and Successfully added new features and designed components for a key product, ensuring seamless
+integration and enhanced user experience.
+•Leveraged TypeScript and Remix frameworks to build robust, maintainable, and scalable web applications, contributing
+to the overall efficiency and performance of the product
+•Utilized a tech stack comprising React Js ,TypeScript ,Remix Framework ,JavaScript ,GoandTailwind CSS to
+develop responsive, dynamic, and visually appealing web applications, ensuring high code quality and user satisfaction.
+•Designed and implemented reusable, accessible, and high-performance components with React.js and Tailwind CSS,
+ensuring a consistent and polished user experience across the application.
+Projects
+Twitter-clone Source Code:Twitter.com
+•Developed a robust backend for a Twitter clone using Node.js and Express, providing functionalities for user
+authentication, tweet creation, and timeline management.
+•Tech Stack - HTML, Postman api ,MongoDb ,Express.js ,Node.js ,Bcrypt.js ,jsonwebtoken ,nodemon
+Implemented secure authentication using JWT and password hashing with bcryptjs.
+•Integrated features like follow/unfollow, like, and comment, ensuring a seamless user experience and efficient data
+management.
+•Designed and thoroughly tested a comprehensive RESTful API using Postman, ensuring reliable and well-documented
+endpoints for all user and tweet-related functionalities.
+Technical Skills
+•Languages: C++, C, HTML/CSS, JavaScript,Typescript,Go,C SQL,OOPs Concept,Tailwind CSS
+•Developer Tools: VS Code, Github, Git,Docker
+•Technologies/Frameworks: React.js,Redux,MongoDb,Node.Js,Express.js,Postman api
+Achievements
+•1st Rank in College on GeeksforGeeks
+•3 Star on LeetCode 1540 rating top 34 percent
+•1000+ Data Structure and Algorithm Problems Solved on Leetcode and GeeksForGeeks,Codechef
+•Longest Streak on LeetCode : 831 days
+Education
+Rajkiya Engineering College Bijnor 2020–2024
+Bachelor of Technology in Electrical Engineering; CGPA: 7.56/10 Bijnor, India
+Saraswati Vidya Mandir 2019
+Class XII (PCM); Percentage: 79% Bijnor, India
+Coding Profile
+LeetCode GeeksforGeeks
