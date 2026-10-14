@@ -5,11 +5,11 @@
 export const profile = {
     name: 'Yash Shukla',
     firstName: 'Yash',
-    roles: ['Full Stack Engineer', 'Gen AI Engineer', 'AI Engineer'],
+    roles: ['Full Stack & AI Developer', 'Gen AI Engineer', 'Backend Specialist'],
     tagline:
-        'I design and ship production-grade web platforms and LLM-powered products — from scalable MERN backends to intelligent, AI-native user experiences.',
+        'Full Stack & AI Developer with 3.8+ years of experience engineering high-performance web platforms and AI-driven solutions — from scalable MERN backends to intelligent LLM data extraction pipelines.',
     location: 'Gonda, Uttar Pradesh, India',
-    email: 'yashshukla0160@gmail.com',
+    email: 'shuklayash457@gmail.com',
     phone: '+91 9838576734',
     github: 'https://github.com/yashshuklaaa',
     linkedin: 'https://www.linkedin.com/in/yash-shukla-b92553212/',
@@ -18,8 +18,8 @@ export const profile = {
 }
 
 export const stats = [
-    { value: 3.9, decimals: 1, suffix: '', label: 'Years of experience' },
-    { value: 3, suffix: '', label: 'Companies, on-site' },
+    { value: 3.8, decimals: 1, suffix: '+', label: 'Years of experience' },
+    { value: 3, suffix: '', label: 'Tech companies' },
     { value: 1000, suffix: '+', label: 'DSA problems solved' },
     { value: 831, suffix: '', label: 'Day LeetCode streak' },
 ]
@@ -32,23 +32,23 @@ export const pillars = [
         description:
             'End-to-end ownership of web platforms: system architecture, secure APIs, data modelling, polished frontends and deployment — built to serve thousands of real users.',
         points: [
-            'MERN, TypeScript, Remix & GraphQL',
-            'Government & enterprise-grade platforms',
-            'API latency & DB query optimisation',
-            'Auth, push notifications & integrations',
+            'MERN Stack, TypeScript, Remix & GraphQL',
+            'Government & enterprise-grade platforms (UPSDMA)',
+            'API latency & DB query optimisation (50% traffic boost)',
+            'Web Push Notifications, auth & integrations',
         ],
     },
     {
         key: 'ai',
         eyebrow: '02 — Intelligence',
-        title: 'Gen AI / AI Engineer',
+        title: 'Gen AI & Cloud',
         description:
-            'Turning large language models into reliable product features: GPT-powered assistants, retrieval pipelines and data-driven automation wired straight into real applications.',
+            'Engineering production-grade AI solutions: LLM endpoints, intelligent caching, automated PDF & catalog data extraction pipelines, and cloud-native ML exploration on GCP & Vertex AI.',
         points: [
-            'LLM apps with OpenAI / GPT APIs',
-            'RAG, embeddings & vector search',
-            'Prompt engineering & AI agents',
-            'Building PartIQ — an AI-native product',
+            'AI-driven document extraction from complex PDFs',
+            'Confidence scoring & response caching layers',
+            'OpenAI GPT conversational features & prompts',
+            'Exploring GCP & Vertex AI infrastructure',
         ],
     },
 ]
@@ -56,40 +56,40 @@ export const pillars = [
 export const expertise = [
     {
         icon: 'brain',
-        title: 'LLM-Powered Products',
-        text: 'GPT-based chat, copilots and smart assistants integrated into real products with streaming UX and guardrails.',
+        title: 'AI Data Extraction Pipelines',
+        text: 'Automated extraction pipelines leveraging LLMs to parse complex PDF manuals and unstructured text into structured database schemas.',
         tag: 'Gen AI',
         size: 'wide',
     },
     {
-        icon: 'layers',
-        title: 'RAG & Vector Search',
-        text: 'Embedding pipelines, semantic retrieval and context-grounded answers over private data.',
-        tag: 'Gen AI',
+        icon: 'zap',
+        title: 'LLM Caching & Confidence Scoring',
+        text: 'Intelligent response caching and validation layers that cut external LLM API latency and operational costs while maintaining high accuracy.',
+        tag: 'AI Optimization',
     },
     {
         icon: 'cpu',
-        title: 'AI Agents & Automation',
-        text: 'Tool-calling agents, webhooks and workflow automation that remove manual effort.',
-        tag: 'AI',
+        title: 'Conversational AI & Assistants',
+        text: 'OpenAI GPT-based conversational features embedded into products to automate responses and increase user retention.',
+        tag: 'Gen AI',
     },
     {
         icon: 'server',
-        title: 'Scalable Backends',
-        text: 'REST & GraphQL APIs on Node.js / Express with PostgreSQL and MongoDB — engineered for concurrency.',
-        tag: 'Full Stack',
+        title: 'Scalable REST & GraphQL APIs',
+        text: 'High-throughput APIs built with Node.js, Express, Go, PostgreSQL & MongoDB — architected for high concurrency and zero degradation.',
+        tag: 'Backend',
     },
     {
         icon: 'layout',
-        title: 'Modern Frontends',
-        text: 'Accessible, component-driven React & TypeScript interfaces with Tailwind and Material UI.',
-        tag: 'Full Stack',
+        title: 'Modern Frontends & Micro-interactions',
+        text: 'Responsive, accessible UIs crafted with React.js, Remix, TypeScript, Tailwind CSS, and Material UI.',
+        tag: 'Frontend',
     },
     {
-        icon: 'zap',
-        title: 'Performance & Reliability',
-        text: 'Lower latency, faster queries and resilient architecture for high-traffic, high-availability apps.',
-        tag: 'Engineering',
+        icon: 'layers',
+        title: 'Cloud & DevOps (GCP / Vertex AI)',
+        text: 'Exploring Google Cloud Platform and Vertex AI to architect scalable AI infrastructures and predictive data models.',
+        tag: 'Cloud & AI',
         size: 'wide',
     },
 ]
@@ -97,99 +97,123 @@ export const expertise = [
 export const experiences = [
     {
         company: 'Troology',
-        role: 'Full Stack Developer',
+        role: 'Full Stack AI Developer',
         period: 'Sept 2025 — Present',
         location: 'On-site',
         current: true,
         summary:
-            'Building large-scale government and enterprise platforms, plus an AI-based product, with secure architecture and state-level compliance.',
+            'Spearheading the eVehicle platform (ScalePart), building AI data extraction pipelines, and contributing to government disaster management platforms.',
         points: [
-            'Contributed to UPSDMA (UP State Disaster Management Authority) — an NCC training & disaster-preparedness platform for SDRF personnel and Aapda Mitra volunteers.',
-            'Built and enhanced core features of the Rahat Sewa App, actively used by thousands of users for training, coordination and disaster response.',
-            'Independently developed a full-scale Ed-Tech MOOC platform from concept to production — architecture, APIs, frontend, auth, database and deployment.',
-            'Working on PartIQ, an AI-based product — owning frontend & backend, scalable APIs and intelligent data-driven features.',
-            'Reduced API latency and improved query efficiency for high availability across large user bases.',
+            'Spearheading the eVehicle platform (ScalePart), developing frontend architectures and backend AI integrations to handle unstructured catalog data.',
+            'Engineered an AI-driven document extraction pipeline utilizing external LLM endpoints to parse complex PDF manuals and unstructured text, extracting model numbers and technical specs into MongoDB schemas.',
+            'Built an intelligent caching and confidence scoring layer for AI responses, significantly reducing external API latency and costs.',
+            'Contributed to the UPSDMA (UP State Disaster Management Authority) platform (Rahat Sewa App) for SDRF personnel, ensuring high concurrency and operational reliability.',
+            'Actively exploring and upskilling in Google Cloud Platform (GCP) and Vertex AI to architect scalable AI infrastructures.',
+            'Developing and optimizing RESTful architectures with Node.js, Express.js, TypeScript, and React.js.',
         ],
-        tags: ['MERN', 'TypeScript', 'AI Product', 'Gov-Tech', 'Tailwind'],
+        tags: ['ScalePart', 'AI Extraction', 'MERN', 'TypeScript', 'Gov-Tech', 'GCP'],
     },
     {
         company: 'Cognitivo',
         role: 'Full Stack Developer',
-        period: 'Apr 2025 — Aug 2025',
-        location: 'On-site',
+        period: 'Jun 2024 — Aug 2025',
+        location: 'Hybrid',
         summary:
-            'Shipped AI chat, real-time notifications and high-throughput APIs for a fast-moving product team.',
+            'Shipped AI conversational features, real-time push alerts, and high-throughput APIs supporting a 50% increase in concurrent traffic.',
         points: [
-            'Integrated AI-powered GPT-based chat for intelligent interactions and automated responses.',
-            'Designed REST & GraphQL APIs on Node.js / Express with PostgreSQL and MongoDB — handled a 50% increase in concurrent traffic with no degradation.',
-            'Implemented Web Push Notifications with Service Workers & VAPID keys, boosting engagement and retention.',
-            'Built Monday.com integrations via custom API connectors, webhooks and automation scripts.',
-            'Led UI/UX refactors improving responsiveness, accessibility and visual consistency.',
+            'Integrated AI-powered conversational features (OpenAI GPT-based) directly into applications, providing intelligent user assistance and automating responses.',
+            'Architected and optimized end-to-end RESTful and GraphQL APIs using Node.js and PostgreSQL/MongoDB, handling a 50% increase in concurrent user traffic.',
+            'Built Web Push Notifications using Service Workers and VAPID keys to implement real-time event-driven alert systems.',
+            'Integrated complex third-party platforms including Monday.com via custom webhooks and automation scripts.',
+            'Refactored legacy UI components using React.js, TypeScript, Material UI, and Tailwind CSS, improving responsiveness and accessibility.',
         ],
-        tags: ['OpenAI GPT', 'GraphQL', 'PostgreSQL', 'Service Workers', 'React'],
+        tags: ['OpenAI GPT', 'GraphQL', 'PostgreSQL', 'Service Workers', 'React', 'TypeScript'],
     },
     {
         company: 'Singularies Pvt Ltd',
         role: 'Software Engineer',
-        period: 'Mar 2024 — Mar 2025',
-        location: 'On-site, Mumbai',
+        period: 'Jan 2023 — May 2024',
+        location: 'Remote',
         summary:
-            'Built features and reusable component systems for a key product using Remix, TypeScript and Go.',
+            'Engineered scalable microservices in Go (Golang) and built reusable component systems using React.js, Remix, and TypeScript.',
         points: [
-            'Integrated APIs and shipped new features and components for a flagship product.',
-            'Leveraged TypeScript and the Remix framework to build robust, maintainable, scalable apps.',
-            'Worked across React, TypeScript, Remix, Go and Tailwind CSS.',
-            'Designed reusable, accessible, high-performance UI components.',
+            'Designed and implemented robust features for a key product, writing maintainable logic utilizing TypeScript, React.js, and Remix frameworks.',
+            'Developed scalable backend microservices using Go (Golang) and integrated critical third-party APIs ensuring high reliability and fault tolerance.',
+            'Created high-performance, reusable UI components with Tailwind CSS focusing on an inclusive, accessible user experience.',
         ],
-        tags: ['Remix', 'TypeScript', 'Go', 'React', 'Tailwind'],
+        tags: ['Remix', 'TypeScript', 'Go', 'React', 'Tailwind CSS'],
     },
 ]
 
 export const projects = [
     {
-        title: 'PartIQ',
+        title: 'ScalePart (eVehicle Platform)',
         category: 'ai',
-        label: 'AI Product · In Production',
+        label: 'eVehicle Platform · Live',
         featured: true,
         description:
-            'An AI-native product delivering intelligent, data-driven insights. I own the full stack — scalable APIs, LLM integration and the product frontend — turning model output into a fast, trustworthy user experience.',
-        highlights: ['LLM integration', 'Scalable API layer', 'Data-driven intelligence'],
-        tech: ['React', 'TypeScript', 'Node.js', 'OpenAI', 'REST APIs'],
+            'An end-to-end intelligent eVehicle platform delivering robust backend APIs and a highly responsive React frontend. Features an AI-driven data extraction pipeline that parses complex PDF documents and unstructured text into structured database records with confidence scoring and intelligent caching.',
+        highlights: [
+            'Live eVehicle platform at scalepart.com',
+            'AI-driven PDF & catalog extraction pipeline',
+            'Intelligent caching & confidence scoring layer',
+            'Scalable MongoDB schemas for rapid retrieval',
+        ],
+        tech: ['React', 'Node.js', 'MongoDB', 'AI Integration', 'TypeScript'],
+        links: { live: 'https://scalepart.com/' },
+    },
+    {
+        title: 'MOOC Ed-Tech Platform (Jalshaala)',
+        category: 'fullstack',
+        label: 'Ed-Tech · Live',
+        featured: true,
+        description:
+            'A full-scale Ed-Tech platform developed from scratch, handling architecture, APIs, authentication, database design, interactive learning features, and cloud deployment.',
+        highlights: [
+            'Live platform at new.jalshaala.com',
+            'Complete end-to-end solo development',
+            'Authentication, role-based access & course flows',
+        ],
+        tech: ['React', 'Node.js', 'MongoDB', 'REST APIs', 'Tailwind'],
+        links: { live: 'https://new.jalshaala.com/?showWebsite=true' },
+    },
+    {
+        title: 'Rahat Sewa App (UPSDMA)',
+        category: 'fullstack',
+        label: 'Gov-Tech · Production',
+        description:
+            'Disaster-preparedness and coordination platform for SDRF personnel and Aapda Mitra volunteers under the Uttar Pradesh State Disaster Management Authority, engineered for high concurrency and field reliability.',
+        highlights: [
+            'Used by SDRF personnel & Aapda Mitra volunteers',
+            'High concurrency & operational reliability',
+        ],
+        tech: ['React', 'Node.js', 'Express', 'MongoDB'],
         links: {},
     },
     {
-        title: 'AI Chat Assistant',
+        title: 'AI Conversational Assistant',
         category: 'ai',
         label: 'Gen AI · Cognitivo',
         description:
-            'GPT-powered conversational assistant embedded into a production app — automated responses, contextual help and smoother user journeys.',
+            'GPT-powered conversational assistant integrated directly into production applications — automated intelligent responses, user assistance, and elevated user retention.',
+        highlights: [
+            'Integrated OpenAI GPT models',
+            'Context-aware automated assistance',
+        ],
         tech: ['OpenAI GPT', 'Node.js', 'React', 'PostgreSQL'],
-        links: {},
-    },
-    {
-        title: 'Ed-Tech MOOC Platform',
-        category: 'fullstack',
-        label: 'Full Stack · Solo build',
-        description:
-            'A complete online-learning platform taken from concept to production single-handedly — architecture, APIs, auth, database design and deployment.',
-        tech: ['React', 'Node.js', 'MongoDB', 'TypeScript', 'Tailwind'],
-        links: {},
-    },
-    {
-        title: 'Rahat Sewa App',
-        category: 'fullstack',
-        label: 'Gov-Tech · UPSDMA',
-        description:
-            'Disaster-preparedness and response platform for SDRF personnel and Aapda Mitra volunteers, used by thousands across Uttar Pradesh.',
-        tech: ['React', 'Node.js', 'Express', 'MongoDB'],
         links: {},
     },
     {
         title: 'Twitter Clone API',
         category: 'fullstack',
-        label: 'Open Source',
+        label: 'Backend · Open Source',
         description:
-            'Robust social-media backend with JWT auth, bcrypt hashing, tweets, timelines, follow/unfollow, likes and comments — fully tested via Postman.',
+            'Robust social backend architecture built with Node.js and Express.js featuring JWT auth, bcrypt password hashing, dynamic timelines, follow/unfollow associations, likes, and comments. Extensively tested with Postman.',
+        highlights: [
+            'Secure JWT & bcrypt authentication flow',
+            'Relational associations in MongoDB',
+            'Fully documented & tested Postman endpoints',
+        ],
         tech: ['Node.js', 'Express', 'MongoDB', 'JWT', 'Bcrypt'],
         links: { github: 'https://github.com/yashshuklaaa' },
     },
@@ -198,17 +222,15 @@ export const projects = [
 // icon keys map to react-icons in App.jsx
 export const skillGroups = [
     {
-        name: 'Gen AI & LLMs',
+        name: 'AI & Cloud',
         skills: [
-            { name: 'OpenAI / GPT', icon: 'openai' },
+            { name: 'AI Integrations & LLMs', icon: 'openai' },
+            { name: 'Google Cloud (GCP)', icon: 'gcp' },
+            { name: 'Vertex AI', icon: 'gemini' },
+            { name: 'Prompt Engineering', icon: 'terminal' },
+            { name: 'AI Extraction Pipelines', icon: 'layers' },
             { name: 'LangChain', icon: 'langchain' },
             { name: 'Hugging Face', icon: 'huggingface' },
-            { name: 'Gemini', icon: 'gemini' },
-            { name: 'RAG Pipelines', icon: 'layers' },
-            { name: 'Embeddings', icon: 'grid' },
-            { name: 'Vector DBs', icon: 'database' },
-            { name: 'Prompt Engineering', icon: 'terminal' },
-            { name: 'AI Agents', icon: 'cpu' },
             { name: 'Python', icon: 'python' },
         ],
     },
@@ -222,6 +244,7 @@ export const skillGroups = [
             { name: 'Redux', icon: 'redux' },
             { name: 'Tailwind CSS', icon: 'tailwind' },
             { name: 'Material UI', icon: 'mui' },
+            { name: 'HTML5 / CSS3', icon: 'layout' },
         ],
     },
     {
@@ -229,17 +252,17 @@ export const skillGroups = [
         skills: [
             { name: 'Node.js', icon: 'node' },
             { name: 'Express.js', icon: 'express' },
-            { name: 'GraphQL', icon: 'graphql' },
-            { name: 'REST APIs', icon: 'server' },
-            { name: 'Go', icon: 'go' },
+            { name: 'Go (Golang)', icon: 'go' },
+            { name: 'REST & GraphQL APIs', icon: 'server' },
             { name: 'Web Push / SW', icon: 'bell' },
         ],
     },
     {
-        name: 'Data & DevOps',
+        name: 'Databases & Tools',
         skills: [
             { name: 'MongoDB', icon: 'mongodb' },
             { name: 'PostgreSQL', icon: 'postgres' },
+            { name: 'SQL', icon: 'database' },
             { name: 'Docker', icon: 'docker' },
             { name: 'Git & GitHub', icon: 'git' },
             { name: 'Postman', icon: 'postman' },
@@ -249,7 +272,7 @@ export const skillGroups = [
 ]
 
 export const marquee = [
-    'openai', 'react', 'node', 'typescript', 'langchain', 'mongodb', 'postgres',
+    'openai', 'react', 'node', 'typescript', 'gcp', 'mongodb', 'postgres',
     'graphql', 'python', 'huggingface', 'docker', 'tailwind', 'remix', 'gemini', 'go', 'express',
 ]
 
@@ -264,8 +287,8 @@ export const education = [
     {
         period: '2020 — 2024',
         school: 'Rajkiya Engineering College, Bijnor',
-        degree: 'B.Tech, Electrical Engineering',
-        grade: 'CGPA 7.56 / 10',
+        degree: 'Bachelor of Technology, Electrical Engineering',
+        grade: 'CGPA: 7.56 / 10',
     },
     {
         period: '2019',

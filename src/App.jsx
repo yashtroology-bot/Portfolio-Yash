@@ -11,7 +11,7 @@ import {
     SiOpenai, SiLangchain, SiHuggingface, SiGooglegemini, SiPython, SiReact, SiTypescript,
     SiJavascript, SiRemix, SiRedux, SiTailwindcss, SiMui, SiNodedotjs, SiExpress, SiGraphql,
     SiGo, SiMongodb, SiPostgresql, SiDocker, SiGit, SiPostman, SiCplusplus, SiLeetcode,
-    SiGeeksforgeeks,
+    SiGeeksforgeeks, SiGooglecloud,
 } from 'react-icons/si'
 import {
     profile, stats, pillars, expertise, experiences, projects, skillGroups,
@@ -25,7 +25,7 @@ const ICONS = {
     remix: SiRemix, redux: SiRedux, tailwind: SiTailwindcss, mui: SiMui, node: SiNodedotjs,
     express: SiExpress, graphql: SiGraphql, go: SiGo, mongodb: SiMongodb, postgres: SiPostgresql,
     docker: SiDocker, git: SiGit, postman: SiPostman, cpp: SiCplusplus, leetcode: SiLeetcode,
-    gfg: SiGeeksforgeeks, layers: FiLayers, grid: FiGrid, database: FiDatabase, terminal: FiTerminal,
+    gfg: SiGeeksforgeeks, gcp: SiGooglecloud, layers: FiLayers, grid: FiGrid, database: FiDatabase, terminal: FiTerminal,
     cpu: FiCpu, server: FiServer, bell: FiBell, layout: FiLayout, zap: FiZap, brain: LuBrainCircuit,
     code: FiCode, flame: HiOutlineFire,
 }
@@ -261,7 +261,7 @@ function Navbar() {
                 <div className="nav-inner">
                     <button id="nav-logo" className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">
                         <span className="logo-mark">YS</span>
-                        <span className="logo-text">yash<span>.ai</span></span>
+                        <span className="logo-text">Yash <span>Shukla</span></span>
                     </button>
 
                     <nav className="nav-links" aria-label="Primary">
@@ -277,7 +277,7 @@ function Navbar() {
                     </nav>
 
                     <div className="nav-actions">
-                        <a id="nav-resume" href={profile.resume} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
+                        <a id="nav-resume" href={profile.resume} download="Yash_Shukla_Resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
                             Resume <FiDownload />
                         </a>
                         <button id="nav-toggle" className="nav-toggle" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
@@ -302,6 +302,20 @@ function Navbar() {
                                 <span className="mono">0{i + 1}</span>{item}
                             </motion.button>
                         ))}
+                        <motion.a
+                            id="mobile-nav-resume"
+                            href={profile.resume}
+                            download="Yash_Shukla_Resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-primary"
+                            style={{ margin: '1.5rem 2rem 0', justifyContent: 'center' }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.35 }}
+                        >
+                            Download Resume <FiDownload />
+                        </motion.a>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -332,7 +346,7 @@ function HeroTerminal() {
         >
             <div className="terminal-bar">
                 <span className="dot dot-r" /><span className="dot dot-y" /><span className="dot dot-g" />
-                <span className="terminal-title mono">partiq / agent.ts</span>
+                <span className="terminal-title mono">scalepart / ai-pipeline.ts</span>
                 <span className="terminal-live"><span className="pulse" />live</span>
             </div>
             <pre className="terminal-body mono">
@@ -463,7 +477,7 @@ function About() {
                     eyebrow="About"
                     title="Two disciplines,"
                     accent="one engineer."
-                    sub={`I'm ${profile.firstName} — a Full Stack Engineer and Gen AI Engineer with 3.9 years of experience, currently at ${profile.currentCompany}. I build the platforms and the intelligence that runs on top of them: government apps used by thousands, a solo-built Ed-Tech product, and PartIQ, an AI-native product.`}
+                    sub={`I'm ${profile.firstName} — a Full Stack & AI Developer with 3.8+ years of experience, currently at ${profile.currentCompany}. I build scalable platforms and intelligent features: government platforms used by thousands (UPSDMA), an Ed-Tech MOOC platform (Jalshaala), and ScalePart, an AI-driven eVehicle platform.`}
                 />
 
                 <div className="pillars">
@@ -834,7 +848,7 @@ function Footer() {
                     <span className="logo-mark">YS</span>
                     <div>
                         <b>{profile.name}</b>
-                        <small>Full Stack Engineer · Gen AI Engineer</small>
+                        <small>Full Stack &amp; AI Developer</small>
                     </div>
                 </div>
                 <p className="mono footer-copy">© {new Date().getFullYear()} — designed &amp; engineered by {profile.firstName}</p>
