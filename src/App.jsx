@@ -11,7 +11,7 @@ import {
     SiOpenai, SiLangchain, SiHuggingface, SiGooglegemini, SiPython, SiReact, SiTypescript,
     SiJavascript, SiRemix, SiRedux, SiTailwindcss, SiMui, SiNodedotjs, SiExpress, SiGraphql,
     SiGo, SiMongodb, SiPostgresql, SiDocker, SiGit, SiPostman, SiCplusplus, SiLeetcode,
-    SiGeeksforgeeks, SiGooglecloud,
+    SiGeeksforgeeks, SiGooglecloud, SiFastapi, SiRedis, SiNextdotjs, SiSocketdotio,
 } from 'react-icons/si'
 import {
     profile, stats, pillars, expertise, experiences, projects, skillGroups,
@@ -25,7 +25,8 @@ const ICONS = {
     remix: SiRemix, redux: SiRedux, tailwind: SiTailwindcss, mui: SiMui, node: SiNodedotjs,
     express: SiExpress, graphql: SiGraphql, go: SiGo, mongodb: SiMongodb, postgres: SiPostgresql,
     docker: SiDocker, git: SiGit, postman: SiPostman, cpp: SiCplusplus, leetcode: SiLeetcode,
-    gfg: SiGeeksforgeeks, gcp: SiGooglecloud, layers: FiLayers, grid: FiGrid, database: FiDatabase, terminal: FiTerminal,
+    gfg: SiGeeksforgeeks, gcp: SiGooglecloud, fastapi: SiFastapi, redis: SiRedis, nextjs: SiNextdotjs,
+    socketio: SiSocketdotio, layers: FiLayers, grid: FiGrid, database: FiDatabase, terminal: FiTerminal,
     cpu: FiCpu, server: FiServer, bell: FiBell, layout: FiLayout, zap: FiZap, brain: LuBrainCircuit,
     code: FiCode, flame: HiOutlineFire,
 }
@@ -277,7 +278,7 @@ function Navbar() {
                     </nav>
 
                     <div className="nav-actions">
-                        <a id="nav-resume" href={profile.resume} download="Yash_Shukla_Resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
+                        <a id="nav-resume" href={profile.resume} download="yash_updated_resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
                             Resume <FiDownload />
                         </a>
                         <button id="nav-toggle" className="nav-toggle" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
@@ -305,7 +306,7 @@ function Navbar() {
                         <motion.a
                             id="mobile-nav-resume"
                             href={profile.resume}
-                            download="Yash_Shukla_Resume.pdf"
+                            download="yash_updated_resume.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn btn-primary"
@@ -325,15 +326,18 @@ function Navbar() {
 
 /* ───────────────────────── Hero ───────────────────────── */
 const CODE = [
-    [['k', 'const '], ['v', 'agent'], ['p', ' = '], ['k', 'new '], ['f', 'Agent'], ['p', '({']],
-    [['p', '  model: '], ['s', '"gpt-4o"'], ['p', ',']],
-    [['p', '  tools: ['], ['v', 'searchDocs'], ['p', ', '], ['v', 'queryDB'], ['p', '],']],
-    [['p', '  memory: '], ['f', 'vectorStore'], ['p', '(embeddings),']],
+    [['k', 'from '], ['v', 'fastapi '], ['k', 'import '], ['f', 'FastAPI']],
+    [['k', 'from '], ['v', 'langchain.agents '], ['k', 'import '], ['f', 'create_mql_agent']],
+    [['k', 'from '], ['v', 'chromadb '], ['k', 'import '], ['f', 'Client']],
+    [],
+    [['v', 'pipeline'], ['p', ' = '], ['f', 'OmniRAG'], ['p', '({']],
+    [['p', '  vector_store: '], ['f', 'ChromaDB'], ['p', '(reranker='], ['s', '"cross-encoder"'], ['p', '),']],
+    [['p', '  agent: '], ['s', '"text-to-mql"'], ['p', ', '], ['v', 'queue: '], ['s', '"bullmq-redis"'], ['p', ',']],
+    [['p', '  stream: '], ['f', 'SSE'], ['p', '(model='], ['s', '"llama-3.1-groq"'], ['p', ')']],
     [['p', '})']],
     [],
-    [['k', 'await '], ['v', 'agent'], ['p', '.'], ['f', 'run'], ['p', '('], ['s', '"Find the root cause"'], ['p', ')']],
-    [['c', '// ✓ retrieved 12 chunks · 184ms']],
-    [['c', '// ✓ answer grounded in 4 sources']],
+    [['c', '// ✓ 12 chunks retrieved & reranked · 142ms']],
+    [['c', '// ✓ token streaming active via SSE']],
 ]
 
 function HeroTerminal() {
@@ -346,7 +350,7 @@ function HeroTerminal() {
         >
             <div className="terminal-bar">
                 <span className="dot dot-r" /><span className="dot dot-y" /><span className="dot dot-g" />
-                <span className="terminal-title mono">scalepart / ai-pipeline.ts</span>
+                <span className="terminal-title mono">omnirag / rag_engine.py</span>
                 <span className="terminal-live"><span className="pulse" />live</span>
             </div>
             <pre className="terminal-body mono">
@@ -366,13 +370,13 @@ function HeroTerminal() {
             </pre>
 
             <motion.div className="float-chip chip-a" animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
-                <SiOpenai /> <div><b>LLM</b><small>GPT · Gemini</small></div>
+                <SiOpenai /> <div><b>Gen AI</b><small>Llama-3.1 · RAG</small></div>
             </motion.div>
             <motion.div className="float-chip chip-b" animate={{ y: [0, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}>
-                <SiReact /> <div><b>Full Stack</b><small>MERN · TS</small></div>
+                <SiFastapi /> <div><b>Full Stack AI</b><small>FastAPI · React · Node</small></div>
             </motion.div>
             <motion.div className="float-chip chip-c" animate={{ y: [0, -8, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}>
-                <FiDatabase /> <div><b>RAG</b><small>Vector search</small></div>
+                <FiDatabase /> <div><b>RAG &amp; Queues</b><small>ChromaDB · Redis</small></div>
             </motion.div>
         </motion.div>
     )
@@ -421,6 +425,9 @@ function Hero() {
                         <button id="hero-cta-projects" className="btn btn-primary" onClick={() => scrollToId('projects')}>
                             View my work <FiArrowRight />
                         </button>
+                        <a id="hero-cta-resume" href={profile.resume} download="yash_updated_resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                            <FiDownload /> Resume
+                        </a>
                         <button id="hero-cta-contact" className="btn btn-ghost" onClick={() => scrollToId('contact')}>
                             <HiOutlineSparkles /> Let&apos;s build together
                         </button>
