@@ -35,17 +35,29 @@ const Icon = ({ name, ...rest }) => {
     return <C {...rest} />
 }
 
-const NAV = ['About', 'Expertise', 'Experience', 'Projects', 'Skills', 'Contact']
+const NAV = [
+    { label: 'About', id: 'about' },
+    { label: 'Expertise', id: 'expertise' },
+    { label: 'Experience', id: 'experience' },
+    { label: 'Projects', id: 'projects' },
+    { label: 'Skills', id: 'skills' },
+    { label: 'Achievements', id: 'achievements' },
+    { label: 'Contact', id: 'contact' },
+]
+
+const NAV_IDS = NAV.map((n) => n.id)
+
+const VIEWPORT = { once: true, amount: 0.08 }
 
 const reveal = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 18 },
     visible: (i = 0) => ({
         opacity: 1, y: 0,
-        transition: { duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: 0.5, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] },
     }),
 }
 
-const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
 /* ───────────────────────── Hooks ───────────────────────── */
 function useTypewriter(words, { type = 70, erase = 35, hold = 1800 } = {}) {
@@ -77,7 +89,7 @@ function useActiveSection(ids) {
     useEffect(() => {
         const obs = new IntersectionObserver(
             (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-            { rootMargin: '-45% 0px -50% 0px' },
+            { rootMargin: '-35% 0px -55% 0px' },
         )
         ids.forEach((id) => {
             const el = document.getElementById(id)
@@ -106,7 +118,7 @@ function NeuralCanvas() {
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-            const count = Math.min(90, Math.floor((w * h) / 16000))
+            const count = Math.min(80, Math.floor((w * h) / 16000))
             nodes = Array.from({ length: count }, () => ({
                 x: Math.random() * w,
                 y: Math.random() * h,
@@ -204,11 +216,11 @@ const GlowCard = forwardRef(function GlowCard({ className = '', children, as: Ta
 
 function Counter({ value, suffix = '', decimals = 0 }) {
     const ref = useRef(null)
-    const inView = useInView(ref, { once: true, margin: '-40px' })
+    const inView = useInView(ref, { once: true, amount: 0.1 })
     const [n, setN] = useState(0)
     useEffect(() => {
         if (!inView) return
-        const c = animate(0, value, { duration: 1.8, ease: [0.22, 1, 0.36, 1], onUpdate: (v) => setN(v) })
+        const c = animate(0, value, { duration: 1.6, ease: [0.22, 1, 0.36, 1], onUpdate: (v) => setN(v) })
         return () => c.stop()
     }, [inView, value])
     const display = decimals
@@ -219,7 +231,7 @@ function Counter({ value, suffix = '', decimals = 0 }) {
 
 function SectionHeader({ eyebrow, title, accent, sub }) {
     return (
-        <motion.div className="section-header" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }}>
+        <motion.div className="section-header" initial="hidden" whileInView="visible" viewport={VIEWPORT}>
             <motion.span className="eyebrow" variants={reveal}><span className="eyebrow-line" />{eyebrow}</motion.span>
             <motion.h2 className="section-title" variants={reveal} custom={1}>
                 {title} <span className="text-gradient">{accent}</span>
@@ -233,14 +245,14 @@ function SectionHeader({ eyebrow, title, accent, sub }) {
 function Navbar() {
     const [scrolled, setScrolled] = useState(false)
     const [open, setOpen] = useState(false)
-    const active = useActiveSection(NAV.map((n) => n.toLowerCase()))
+    const active = useActiveSection(NAV_IDS)
     const { scrollYProgress } = useScroll()
     const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 30)
+        const onScroll = () => setScrolled(window.scrollY > 24)
         onScroll()
-        window.addEventListener('scroll', onScroll)
+        window.addEventListener('scroll', onScroll, { passive: true })
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
 
@@ -255,9 +267,9 @@ function Navbar() {
             <motion.div className="scroll-progress" style={{ scaleX: progress }} />
             <motion.header
                 className={`nav ${scrolled ? 'nav--scrolled' : ''}`}
-                initial={{ y: -80, opacity: 0 }}
+                initial={{ y: -60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
                 <div className="nav-inner">
                     <button id="nav-logo" className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">
@@ -266,20 +278,17 @@ function Navbar() {
                     </button>
 
                     <nav className="nav-links" aria-label="Primary">
-                        {NAV.map((item) => {
-                            const id = item.toLowerCase()
-                            return (
-                                <button key={id} id={`nav-${id}`} onClick={() => go(id)} className={`nav-link ${active === id ? 'is-active' : ''}`}>
-                                    {active === id && <motion.span layoutId="nav-pill" className="nav-pill" transition={{ type: 'spring', stiffness: 380, damping: 30 }} />}
-                                    <span>{item}</span>
-                                </button>
-                            )
-                        })}
+                        {NAV.map(({ label, id }) => (
+                            <button key={id} id={`nav-${id}`} onClick={() => go(id)} className={`nav-link ${active === id ? 'is-active' : ''}`}>
+                                {active === id && <motion.span layoutId="nav-pill" className="nav-pill" transition={{ type: 'spring', stiffness: 380, damping: 30 }} />}
+                                <span>{label}</span>
+                            </button>
+                        ))}
                     </nav>
 
                     <div className="nav-actions">
-                        <a id="nav-resume" href={profile.resume} download="yash_updated_resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
-                            Resume <FiDownload />
+                        <a id="nav-resume" href={profile.resume} download="yash_updated_resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm nav-resume-btn">
+                            <span className="nav-resume-label">Resume</span> <FiDownload />
                         </a>
                         <button id="nav-toggle" className="nav-toggle" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
                             {open ? <FiX /> : <FiMenu />}
@@ -291,16 +300,16 @@ function Navbar() {
             <AnimatePresence>
                 {open && (
                     <motion.div className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                        {NAV.map((item, i) => (
+                        {NAV.map(({ label, id }, i) => (
                             <motion.button
-                                key={item}
-                                id={`mobile-nav-${item.toLowerCase()}`}
-                                onClick={() => go(item.toLowerCase())}
-                                initial={{ opacity: 0, y: 20 }}
+                                key={id}
+                                id={`mobile-nav-${id}`}
+                                onClick={() => go(id)}
+                                initial={{ opacity: 0, y: 16 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.05 * i }}
+                                transition={{ delay: 0.04 * i }}
                             >
-                                <span className="mono">0{i + 1}</span>{item}
+                                <span className="mono">0{i + 1}</span>{label}
                             </motion.button>
                         ))}
                         <motion.a
@@ -309,11 +318,10 @@ function Navbar() {
                             download="yash_updated_resume.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="btn btn-primary"
-                            style={{ margin: '1.5rem 2rem 0', justifyContent: 'center' }}
-                            initial={{ opacity: 0, y: 20 }}
+                            className="btn btn-primary mobile-resume-cta"
+                            initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.35 }}
+                            transition={{ delay: 0.3 }}
                         >
                             Download Resume <FiDownload />
                         </motion.a>
@@ -344,9 +352,9 @@ function HeroTerminal() {
     return (
         <motion.div
             className="terminal"
-            initial={{ opacity: 0, y: 40, rotateX: 12 }}
+            initial={{ opacity: 0, y: 24, rotateX: 8 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.85, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         >
             <div className="terminal-bar">
                 <span className="dot dot-r" /><span className="dot dot-y" /><span className="dot dot-g" />
@@ -358,9 +366,9 @@ function HeroTerminal() {
                     <motion.div
                         key={i}
                         className="code-line"
-                        initial={{ opacity: 0, x: -10 }}
+                        initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1 + i * 0.18 }}
+                        transition={{ delay: 0.4 + i * 0.08 }}
                     >
                         <span className="ln">{String(i + 1).padStart(2, '0')}</span>
                         {line.map(([t, s], j) => <span key={j} className={`tk-${t}`}>{s}</span>)}
@@ -369,13 +377,13 @@ function HeroTerminal() {
                 ))}
             </pre>
 
-            <motion.div className="float-chip chip-a" animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
+            <motion.div className="float-chip chip-a" animate={{ y: [0, -6, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
                 <SiOpenai /> <div><b>Gen AI</b><small>Llama-3.1 · RAG</small></div>
             </motion.div>
-            <motion.div className="float-chip chip-b" animate={{ y: [0, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}>
+            <motion.div className="float-chip chip-b" animate={{ y: [0, 6, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}>
                 <SiFastapi /> <div><b>Full Stack AI</b><small>FastAPI · React · Node</small></div>
             </motion.div>
-            <motion.div className="float-chip chip-c" animate={{ y: [0, -8, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}>
+            <motion.div className="float-chip chip-c" animate={{ y: [0, -5, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}>
                 <FiDatabase /> <div><b>RAG &amp; Queues</b><small>ChromaDB · Redis</small></div>
             </motion.div>
         </motion.div>
@@ -393,62 +401,62 @@ function Hero() {
             </div>
             <div className="grid-overlay" aria-hidden="true" />
 
-            <div className="container hero-grid">
-                <motion.div className="hero-copy" initial="hidden" animate="visible">
-                    <motion.div className="status-pill" variants={reveal}>
-                        <span className="status-dot" /> Open to Full Stack &amp; AI Engineering roles
+            <div className="container hero-inner">
+                <div className="hero-grid">
+                    <motion.div className="hero-copy" initial="hidden" animate="visible">
+                        <motion.div className="status-pill" variants={reveal}>
+                            <span className="status-dot" /> Open to Full Stack &amp; AI Engineering roles
+                        </motion.div>
+
+                        <motion.p className="hero-hello mono" variants={reveal} custom={1}>
+                            Hi, I&apos;m {profile.name} —
+                        </motion.p>
+
+                        <motion.h1 className="hero-title" variants={reveal} custom={2}>
+                            <span className="hero-line">Engineering</span>
+                            <span className="hero-line">
+                                <span className="text-gradient">intelligent</span> software
+                            </span>
+                            <span className="hero-line hero-line--muted">end to end.</span>
+                        </motion.h1>
+
+                        <motion.div className="role-rotator" variants={reveal} custom={3}>
+                            <span className="role-prefix mono">&gt;_</span>
+                            <span className="role-text">{role}</span>
+                            <span className="role-caret" />
+                        </motion.div>
+
+                        <motion.p className="hero-tagline" variants={reveal} custom={4}>
+                            {profile.tagline}
+                        </motion.p>
+
+                        <motion.div className="hero-cta" variants={reveal} custom={5}>
+                            <button id="hero-cta-projects" className="btn btn-primary" onClick={() => scrollToId('projects')}>
+                                View my work <FiArrowRight />
+                            </button>
+                            <a id="hero-cta-resume" href={profile.resume} download="yash_updated_resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                                <FiDownload /> Resume
+                            </a>
+                            <button id="hero-cta-contact" className="btn btn-ghost" onClick={() => scrollToId('contact')}>
+                                <HiOutlineSparkles /> Let&apos;s build together
+                            </button>
+                        </motion.div>
+
+                        <motion.div className="hero-socials" variants={reveal} custom={6}>
+                            <a id="hero-github" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FiGithub /></a>
+                            <a id="hero-linkedin" href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FiLinkedin /></a>
+                            <a id="hero-email" href={`mailto:${profile.email}`} aria-label="Email"><FiMail /></a>
+                            <span className="hero-socials-line" />
+                            <span className="mono hero-loc"><FiMapPin /> {profile.location}</span>
+                        </motion.div>
                     </motion.div>
 
-                    <motion.p className="hero-hello mono" variants={reveal} custom={1}>
-                        Hi, I&apos;m {profile.name} —
-                    </motion.p>
-
-                    <motion.h1 className="hero-title" variants={reveal} custom={2}>
-                        <span className="hero-line">Engineering</span>
-                        <span className="hero-line">
-                            <span className="text-gradient">intelligent</span> software
-                        </span>
-                        <span className="hero-line hero-line--muted">end to end.</span>
-                    </motion.h1>
-
-                    <motion.div className="role-rotator" variants={reveal} custom={3}>
-                        <span className="role-prefix mono">&gt;_</span>
-                        <span className="role-text">{role}</span>
-                        <span className="role-caret" />
-                    </motion.div>
-
-                    <motion.p className="hero-tagline" variants={reveal} custom={4}>
-                        {profile.tagline}
-                    </motion.p>
-
-                    <motion.div className="hero-cta" variants={reveal} custom={5}>
-                        <button id="hero-cta-projects" className="btn btn-primary" onClick={() => scrollToId('projects')}>
-                            View my work <FiArrowRight />
-                        </button>
-                        <a id="hero-cta-resume" href={profile.resume} download="yash_updated_resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
-                            <FiDownload /> Resume
-                        </a>
-                        <button id="hero-cta-contact" className="btn btn-ghost" onClick={() => scrollToId('contact')}>
-                            <HiOutlineSparkles /> Let&apos;s build together
-                        </button>
-                    </motion.div>
-
-                    <motion.div className="hero-socials" variants={reveal} custom={6}>
-                        <a id="hero-github" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FiGithub /></a>
-                        <a id="hero-linkedin" href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FiLinkedin /></a>
-                        <a id="hero-email" href={`mailto:${profile.email}`} aria-label="Email"><FiMail /></a>
-                        <span className="hero-socials-line" />
-                        <span className="mono hero-loc"><FiMapPin /> {profile.location}</span>
-                    </motion.div>
-                </motion.div>
-
-                <div className="hero-visual">
-                    <HeroTerminal />
+                    <div className="hero-visual">
+                        <HeroTerminal />
+                    </div>
                 </div>
-            </div>
 
-            <div className="container">
-                <motion.div className="stats-bar" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 0.8 }}>
+                <motion.div className="stats-bar" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.6 }}>
                     {stats.map((s) => (
                         <div key={s.label} className="stat">
                             <div className="stat-value"><Counter value={s.value} suffix={s.suffix} decimals={s.decimals} /></div>
@@ -494,17 +502,21 @@ function About() {
                             className={`pillar pillar--${p.key}`}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: true, margin: '-60px' }}
+                            viewport={VIEWPORT}
                             variants={reveal}
                             custom={i}
                         >
-                            <div className="pillar-icon">{p.key === 'ai' ? <LuBrainCircuit /> : <FiCode />}</div>
-                            <span className="pillar-eyebrow mono">{p.eyebrow}</span>
-                            <h3>{p.title}</h3>
+                            <div className="pillar-head">
+                                <div className="pillar-icon">{p.key === 'ai' ? <LuBrainCircuit /> : <FiCode />}</div>
+                                <div>
+                                    <span className="pillar-eyebrow mono">{p.eyebrow}</span>
+                                    <h3>{p.title}</h3>
+                                </div>
+                            </div>
                             <p>{p.description}</p>
                             <ul>
                                 {p.points.map((pt) => (
-                                    <li key={pt}><FiCheck /> {pt}</li>
+                                    <li key={pt}><FiCheck /> <span>{pt}</span></li>
                                 ))}
                             </ul>
                         </GlowCard>
@@ -528,7 +540,7 @@ function Expertise() {
                             className={`bento-item ${e.size === 'wide' ? 'bento-wide' : ''}`}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: true, margin: '-60px' }}
+                            viewport={VIEWPORT}
                             variants={reveal}
                             custom={i % 3}
                         >
@@ -549,14 +561,22 @@ function Expertise() {
 /* ───────────────────────── Experience ───────────────────────── */
 function Experience() {
     const [active, setActive] = useState(0)
+    const [expandedExp, setExpandedExp] = useState(false)
     const exp = experiences[active]
+
+    const handleTabChange = (i) => {
+        setActive(i)
+        setExpandedExp(false)
+    }
+
+    const visiblePoints = expandedExp ? exp.points : exp.points.slice(0, 3)
 
     return (
         <section className="section" id="experience">
             <div className="container">
-                <SectionHeader eyebrow="Experience" title="Where I've" accent="shipped." sub="Three on-site roles across gov-tech, AI products and SaaS." />
+                <SectionHeader eyebrow="Experience" title="Where I've" accent="shipped." sub="Three roles across gov-tech, AI products and SaaS." />
 
-                <motion.div className="exp" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} variants={reveal}>
+                <motion.div className="exp" initial="hidden" whileInView="visible" viewport={VIEWPORT} variants={reveal}>
                     <div className="exp-tabs" role="tablist">
                         {experiences.map((e, i) => (
                             <button
@@ -565,7 +585,7 @@ function Experience() {
                                 role="tab"
                                 aria-selected={active === i}
                                 className={`exp-tab ${active === i ? 'is-active' : ''}`}
-                                onClick={() => setActive(i)}
+                                onClick={() => handleTabChange(i)}
                             >
                                 {active === i && <motion.span layoutId="exp-indicator" className="exp-indicator" />}
                                 <span className="exp-tab-company">{e.company}</span>
@@ -578,10 +598,10 @@ function Experience() {
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={exp.company}
-                                initial={{ opacity: 0, y: 16 }}
+                                initial={{ opacity: 0, y: 12 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -16 }}
-                                transition={{ duration: 0.35 }}
+                                exit={{ opacity: 0, y: -12 }}
+                                transition={{ duration: 0.3 }}
                             >
                                 <div className="exp-head">
                                     <div>
@@ -592,12 +612,21 @@ function Experience() {
                                 </div>
                                 <p className="exp-summary">{exp.summary}</p>
                                 <ul className="exp-points">
-                                    {exp.points.map((p, i) => (
-                                        <motion.li key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i }}>
-                                            <span className="exp-bullet" />{p}
+                                    {visiblePoints.map((p, i) => (
+                                        <motion.li key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 * i }}>
+                                            <span className="exp-bullet" /><span>{p}</span>
                                         </motion.li>
                                     ))}
                                 </ul>
+                                {exp.points.length > 3 && (
+                                    <button
+                                        onClick={() => setExpandedExp(!expandedExp)}
+                                        className="btn-details mono"
+                                        style={{ marginBottom: '14px' }}
+                                    >
+                                        {expandedExp ? 'Show less' : `+${exp.points.length - 3} more key achievements`}
+                                    </button>
+                                )}
                                 <div className="chips">
                                     {exp.tags.map((t) => <span key={t} className="chip">{t}</span>)}
                                 </div>
@@ -617,40 +646,40 @@ const FILTERS = [
     { key: 'fullstack', label: 'Full Stack' },
 ]
 
-function ProjectVisual({ category, title }) {
-    return (
-        <div className={`project-visual project-visual--${category}`} aria-hidden="true">
-            <div className="pv-grid" />
-            <div className="pv-orb" />
-            <div className="pv-icon">{category === 'ai' ? <LuBrainCircuit /> : <FiLayers />}</div>
-            <span className="pv-title mono">{title.toLowerCase().replace(/\s+/g, '-')}</span>
-        </div>
-    )
-}
-
 function Projects() {
     const [filter, setFilter] = useState('all')
+    const [modalProject, setModalProject] = useState(null)
     const list = projects.filter((p) => filter === 'all' || p.category === filter)
+
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            if (e.key === 'Escape') setModalProject(null)
+        }
+        window.addEventListener('keydown', onKeyDown)
+        return () => window.removeEventListener('keydown', onKeyDown)
+    }, [])
 
     return (
         <section className="section" id="projects">
             <div className="container">
-                <SectionHeader eyebrow="Selected work" title="Things I've" accent="built." sub="Production systems, AI features and side projects — most of them used by real people every day." />
+                <div className="section-top">
+                    <SectionHeader eyebrow="Selected work" title="Things I've" accent="built." sub="Production systems, AI pipelines and live platforms — built for real users." />
 
-                <div className="filters" role="tablist">
-                    {FILTERS.map((f) => (
-                        <button
-                            key={f.key}
-                            id={`filter-${f.key}`}
-                            role="tab"
-                            aria-selected={filter === f.key}
-                            className={`filter ${filter === f.key ? 'is-active' : ''}`}
-                            onClick={() => setFilter(f.key)}
-                        >
-                            {filter === f.key && <motion.span layoutId="filter-pill" className="filter-pill" transition={{ type: 'spring', stiffness: 380, damping: 30 }} />}
-                            <span>{f.label}</span>
-                        </button>
-                    ))}
+                    <div className="filters" role="tablist" aria-label="Project categories">
+                        {FILTERS.map((f) => (
+                            <button
+                                key={f.key}
+                                id={`filter-${f.key}`}
+                                role="tab"
+                                aria-selected={filter === f.key}
+                                className={`filter ${filter === f.key ? 'is-active' : ''}`}
+                                onClick={() => setFilter(f.key)}
+                            >
+                                {filter === f.key && <motion.span layoutId="filter-pill" className="filter-pill" transition={{ type: 'spring', stiffness: 380, damping: 30 }} />}
+                                <span>{f.label}</span>
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 <motion.div layout className="projects">
@@ -659,45 +688,124 @@ function Projects() {
                             <GlowCard
                                 key={p.title}
                                 layout
-                                className={`project ${p.featured ? 'project--featured' : ''}`}
-                                initial={{ opacity: 0, scale: 0.96 }}
+                                className={`project project--${p.category} ${p.featured ? 'project--featured' : ''}`}
+                                initial={{ opacity: 0, scale: 0.97 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.96 }}
-                                transition={{ duration: 0.4 }}
+                                exit={{ opacity: 0, scale: 0.97 }}
+                                transition={{ duration: 0.35 }}
                             >
-                                <ProjectVisual category={p.category} title={p.title} />
                                 <div className="project-body">
-                                    <span className="project-label mono">{p.label}</span>
-                                    <h3>{p.title}</h3>
-                                    <p>{p.description}</p>
-                                    {p.highlights && (
-                                        <ul className="project-highlights">
-                                            {p.highlights.map((h) => <li key={h}><FiCheck /> {h}</li>)}
-                                        </ul>
-                                    )}
-                                    <div className="chips">
-                                        {p.tech.map((t) => <span key={t} className="chip">{t}</span>)}
+                                    <div className="project-top">
+                                        <div className={`project-badge-icon project-badge-icon--${p.category}`}>
+                                            {p.category === 'ai' ? <LuBrainCircuit /> : <FiLayers />}
+                                        </div>
+                                        <div className="project-meta">
+                                            <span className="project-label mono">{p.label}</span>
+                                        </div>
+                                        {p.links.live && (
+                                            <span className="project-live-pill mono">
+                                                <span className="pulse" /> Live
+                                            </span>
+                                        )}
                                     </div>
-                                    {(p.links.github || p.links.live) && (
-                                        <div className="project-links">
+
+                                    <h3>{p.title}</h3>
+                                    <p className="project-desc">{p.description}</p>
+
+                                    {p.highlights?.[0] && (
+                                        <div className="project-key-point">
+                                            <FiCheck /> <span>{p.highlights[0]}</span>
+                                        </div>
+                                    )}
+
+                                    <div className="chips project-chips">
+                                        {p.tech.slice(0, 4).map((t) => <span key={t} className="chip">{t}</span>)}
+                                        {p.tech.length > 4 && <span className="chip chip-more">+{p.tech.length - 4}</span>}
+                                    </div>
+
+                                    <div className="project-links">
+                                        <div className="project-links-group">
                                             {p.links.github && (
                                                 <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="link-arrow">
                                                     <FiGithub /> Source <FiArrowUpRight />
                                                 </a>
                                             )}
                                             {p.links.live && (
-                                                <a href={p.links.live} target="_blank" rel="noopener noreferrer" className="link-arrow">
+                                                <a href={p.links.live} target="_blank" rel="noopener noreferrer" className="link-arrow link-arrow--live">
                                                     Live <FiArrowUpRight />
                                                 </a>
                                             )}
                                         </div>
-                                    )}
+                                        <button onClick={() => setModalProject(p)} className="btn-details">
+                                            <LuBrainCircuit /> Deep Dive
+                                        </button>
+                                    </div>
                                 </div>
                             </GlowCard>
                         ))}
                     </AnimatePresence>
                 </motion.div>
             </div>
+
+            <AnimatePresence>
+                {modalProject && (
+                    <motion.div
+                        className="project-modal-backdrop"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setModalProject(null)}
+                    >
+                        <motion.div
+                            className="project-modal"
+                            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.94, y: 20 }}
+                            transition={{ duration: 0.25 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button className="project-modal-close" onClick={() => setModalProject(null)} aria-label="Close modal">
+                                <FiX />
+                            </button>
+                            <div className="project-modal-header">
+                                <span className="project-label mono">{modalProject.label}</span>
+                                <h2>{modalProject.title}</h2>
+                            </div>
+                            <p className="project-modal-desc">{modalProject.description}</p>
+                            {modalProject.highlights && (
+                                <>
+                                    <div className="project-modal-section-title">
+                                        <LuBrainCircuit /> Key Architecture &amp; Achievements
+                                    </div>
+                                    <ul className="project-modal-highlights">
+                                        {modalProject.highlights.map((h) => (
+                                            <li key={h}><FiCheck /> <span>{h}</span></li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
+                            <div className="project-modal-section-title">Technologies &amp; Tools</div>
+                            <div className="chips">
+                                {modalProject.tech.map((t) => <span key={t} className="chip">{t}</span>)}
+                            </div>
+                            {(modalProject.links.github || modalProject.links.live) && (
+                                <div className="project-modal-actions">
+                                    {modalProject.links.github && (
+                                        <a href={modalProject.links.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
+                                            <FiGithub /> Source Code <FiArrowUpRight />
+                                        </a>
+                                    )}
+                                    {modalProject.links.live && (
+                                        <a href={modalProject.links.live} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
+                                            Live Demo <FiArrowUpRight />
+                                        </a>
+                                    )}
+                                </div>
+                            )}
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     )
 }
@@ -707,7 +815,7 @@ function Skills() {
     return (
         <section className="section" id="skills">
             <div className="container">
-                <SectionHeader eyebrow="Toolkit" title="The stack behind" accent="the work." />
+                <SectionHeader eyebrow="Toolkit" title="The stack behind" accent="the work." sub="Production tools across Generative AI, distributed backends, modern frontends and cloud." />
                 <div className="skills">
                     {skillGroups.map((g, gi) => (
                         <GlowCard
@@ -715,7 +823,7 @@ function Skills() {
                             className={`skill-group ${gi === 0 ? 'skill-group--ai' : ''}`}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: true, margin: '-60px' }}
+                            viewport={VIEWPORT}
                             variants={reveal}
                             custom={gi}
                         >
@@ -725,7 +833,7 @@ function Skills() {
                             </div>
                             <div className="skill-list">
                                 {g.skills.map((s) => (
-                                    <motion.span key={s.name} className="skill" whileHover={{ y: -3 }}>
+                                    <motion.span key={s.name} className="skill" whileHover={{ y: -2 }}>
                                         <Icon name={s.icon} /> {s.name}
                                     </motion.span>
                                 ))}
@@ -743,12 +851,14 @@ function Credentials() {
     return (
         <section className="section" id="achievements">
             <div className="container">
-                <SectionHeader eyebrow="Proof of work" title="Problem solver" accent="at heart." />
+                <SectionHeader eyebrow="Proof of work" title="Problem solver" accent="at heart." sub="Consistent competitive programming fundamentals backed by an engineering degree." />
                 <div className="achievements">
                     {achievements.map((a, i) => (
-                        <GlowCard key={a.title} className="achievement" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={reveal} custom={i}>
-                            <div className="achievement-icon"><Icon name={a.icon} /></div>
-                            <div className="achievement-value">{a.value}</div>
+                        <GlowCard key={a.title} className="achievement" initial="hidden" whileInView="visible" viewport={VIEWPORT} variants={reveal} custom={i}>
+                            <div className="achievement-top">
+                                <div className="achievement-icon"><Icon name={a.icon} /></div>
+                                <div className="achievement-value">{a.value}</div>
+                            </div>
                             <h4>{a.title}</h4>
                             <p>{a.text}</p>
                         </GlowCard>
@@ -757,7 +867,7 @@ function Credentials() {
 
                 <div className="education">
                     {education.map((e, i) => (
-                        <motion.div key={e.school} className="edu" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={reveal} custom={i}>
+                        <motion.div key={e.school} className="edu" initial="hidden" whileInView="visible" viewport={VIEWPORT} variants={reveal} custom={i}>
                             <div className="edu-icon"><FiBookOpen /></div>
                             <div className="edu-body">
                                 <span className="mono edu-period">{e.period}</span>
@@ -791,7 +901,7 @@ function Contact() {
     return (
         <section className="section contact" id="contact">
             <div className="container">
-                <GlowCard className="contact-card" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={reveal}>
+                <GlowCard className="contact-card" initial="hidden" whileInView="visible" viewport={VIEWPORT} variants={reveal}>
                     <div className="contact-aurora" aria-hidden="true" />
                     <div className="contact-grid">
                         <div className="contact-copy">
@@ -807,17 +917,17 @@ function Contact() {
                             <div className="contact-list">
                                 <a id="contact-email" href={`mailto:${profile.email}`} className="contact-row">
                                     <span className="contact-ico"><FiMail /></span>
-                                    <span><small>Email</small>{profile.email}</span>
+                                    <span className="contact-row-text"><small>Email</small>{profile.email}</span>
                                     <FiArrowUpRight className="contact-arrow" />
                                 </a>
                                 <a id="contact-phone" href={`tel:${profile.phone.replace(/\s/g, '')}`} className="contact-row">
                                     <span className="contact-ico"><FiPhone /></span>
-                                    <span><small>Phone</small>{profile.phone}</span>
+                                    <span className="contact-row-text"><small>Phone</small>{profile.phone}</span>
                                     <FiArrowUpRight className="contact-arrow" />
                                 </a>
                                 <a id="contact-linkedin" href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="contact-row">
                                     <span className="contact-ico"><FiLinkedin /></span>
-                                    <span><small>LinkedIn</small>yash-shukla</span>
+                                    <span className="contact-row-text"><small>LinkedIn</small>yash-shukla</span>
                                     <FiArrowUpRight className="contact-arrow" />
                                 </a>
                             </div>
@@ -833,7 +943,7 @@ function Contact() {
                                 <label htmlFor="contact-email-input">Email address</label>
                             </div>
                             <div className="field">
-                                <textarea id="contact-message" name="message" rows={5} value={form.message} onChange={onChange} placeholder=" " required />
+                                <textarea id="contact-message" name="message" rows={3} value={form.message} onChange={onChange} placeholder=" " required />
                                 <label htmlFor="contact-message">Tell me about your project</label>
                             </div>
                             <button id="contact-submit" type="submit" className="btn btn-primary btn-block">
